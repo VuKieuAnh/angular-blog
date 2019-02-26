@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {IPost} from '../post';
+import {PostService} from '../post.service';
 
 @Component({
   selector: 'app-blog',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./blog.component.scss']
 })
 export class BlogComponent implements OnInit {
+  postList: IPost[] = [];
 
-  constructor() { }
+  constructor(
+    private postService: PostService,
+    ) { }
 
   ngOnInit() {
+    this.postService.getPosts().subscribe(next => (this.postList = next), error => (this.postList = []));
   }
 
 }
